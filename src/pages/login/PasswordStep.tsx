@@ -5,11 +5,15 @@ import {
   Box,
   Button,
   CircularProgress,
+  IconButton,
+  InputAdornment,
   Link,
   Snackbar,
   TextField,
   Typography,
 } from '@mui/material'
+import VisibilityIcon from '@mui/icons-material/VisibilityOutlined'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOffOutlined'
 import { authApi } from '../../api/authApi'
 import { ApiClientError } from '../../api/client'
 import { useAuth } from '../../auth/AuthContext'
@@ -28,6 +32,7 @@ export function PasswordStep({ onMfaRequired }: PasswordStepProps) {
   const [forgotPasswordMessage, setForgotPasswordMessage] = useState<
     string | null
   >(null)
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
@@ -97,13 +102,29 @@ export function PasswordStep({ onMfaRequired }: PasswordStepProps) {
       />
       <TextField
         label="Password"
-        type="password"
+        type={showPassword ? 'text' : 'password'}
         fullWidth
         required
         margin="normal"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         autoComplete="current-password"
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  edge="end"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
+        }}
       />
 
       <Box sx={{ textAlign: 'right', mt: 0.5, mb: 2 }}>
