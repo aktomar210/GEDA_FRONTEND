@@ -1,5 +1,9 @@
 # GEDA SCADA SaaS Platform — Frontend
 
+Deployed on Vercel with SPA routing handled via `vercel.json` (rewrites all
+paths to `index.html` so client-side routes like `/dashboard` work on direct
+load/refresh, not just in-app navigation).
+
 React + TypeScript single-page application for the GEDA IIoT SCADA SaaS demo slice
 (Login/OTP, Dashboard, Device Management), built by Qpaix Infitech Pvt Ltd.
 
